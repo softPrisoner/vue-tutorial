@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <p>{{msg}}</p>
+    <!--<p>{{{msg}}}</p> 语法上已经废除-->
+    <!--对象函数、文本、HTML绑定-->
+    <p>小写字母转换成大写字母->{{msg.toUpperCase()}}</p>
+    <p>判断元素中字符数量->【{{msg}}】-->是否至少包含37个字符-->{{msg.hasOwnProperty(37)}}</p>
+    【v-text标签】以文本显示消息对象:<p v-text="msg"></p>
+    【v-html标签】html语法解析消息对象:<p v-html="msg"></p>
+
+    <!--绑定监听事件-->
+    <button v-on:click="test">v-on:click【监听事件】</button>
+    <button @click="test">@click【监听事件】</button>
+    <button @click="test2('abc')">传递字符串参数【监听事件】</button>
+    <button @click="test2(msg)">传递对象参数【监听事件】</button>
+    <br/>
+    <!--资源src绑定-->
+    <img src="../../assets/logo.png"><!--强制绑定-->
+    <img v-bind:src="imgUrl"> <!--资源绑定-->
+    <img :src="imgUrl"><!--简化的资源绑定-->
+</div>
+</body>
+<script type="text/javascript" src="../../js/vue.js"></script>
+<script type="text/javascript">
+    //view model
+    var vue = new Vue({
+        //元素id
+        el: '#app',
+        //绑定数据
+        data: {
+            msg: '<a href="https://www.baidu.com">网址链接</a>',//38个字符
+            imgUrl: 'http://pic28.photophoto.cn/20130818/0020033143720852_b.jpg'
+        },
+        //方法定义method
+        methods: {
+            //无参方法
+            test() {
+                alert('点击事件被触发！');
+            },
+            //带参数的方法
+            test2(content) {
+                alert(content);
+            }
+        }
+    });
+</script>
+</html>

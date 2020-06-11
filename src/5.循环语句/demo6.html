@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <!--<li v-for="(p,index) in persons" :key="index">-->
+        <li v-for="(p,index) of persons" :key="index">
+            {{index}}->{{p.name}}->{{p.age}}
+            <button @click="removeEl(index)">删除</button>
+            <!--<button @click="updateEl(index)">更新</button>-->
+            <button @click="updateEl(index,{name:'updated',age:15})">更新</button>
+        </li>
+    </ul>
+    <!--value:key:index-->
+    <div v-for="(p1,key,index) of person" :key="index">
+        {{index}}-->{{key}}-->{{p1}}
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../js/vue.js"></script>
+<script type="text/javascript">
+    // 创建VM
+    var vm = new Vue(
+        {
+            el: '#app', //指定元素
+            data: {      //model
+                persons: [  //vue本身只是监视了persons的改变，并不监视数组内部数据的改变
+                    {
+                        name: 'Tom', age: 18
+                    },
+                    {
+                        name: 'Jack', age: 20
+                    },
+                    {
+                        name: 'rose', age: 12
+                    },
+                    {
+                        name: 'peter', age: 30
+                    }
+                ],
+                person: {
+                    name: 'Tom', age: 18
+                }
+            },
+            // push()  向数组中添加一个元素
+            // pop()    取出一个元素
+            // shift()  移动一个元素
+            // unshift() 移动一个元素
+            // splice()    处理一个元素
+            // sort()       排序一个元素
+            // reverse()    翻转一个元素
+            methods: {
+                updateEl(index, newP) {
+                    // this.persons[index]=newP 只改变内部元素，并未改变界面
+                    // this.persons=[]
+                    //第一种方式
+                    //this.persons.splice(index, 1, newP)
+                    //第二种方式
+                    Vue.set(this.persons,index,newP)
+
+                    //第三种方式
+                    // this.persons[index].name='updated'
+                    // this.persons[index].age=100
+                },
+                removeEl(index) {
+                    this.persons.splice(index, 1)
+                }
+            }
+        }
+    )
+</script>
+</html>

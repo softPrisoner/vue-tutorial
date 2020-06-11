@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="username">
+    <p>Hello World!{{username}}</p>//views
+</div>
+</body>
+//步骤1：首先引入vue.js
+<script type="text/javascript" src="../../js/vue.js"></script>
+<script type="text/javascript">
+    // 创建VM
+    var vm = new Vue(
+        {
+            el: '#app', //指定元素
+            data: {      //model
+                username: '测试用例'
+            }
+        }
+    )
+</script>
+</html>

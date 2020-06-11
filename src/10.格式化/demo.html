@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    显示格式化时间
+    <p>{{date}}</p>
+    <p>完整版:{{date | dataString}}</p>
+</div>
+</body>
+<script type="text/javascript" src="../../js/vue.js"></script>
+<script type="text/javascript" src="../../js/moment.js"></script>
+<script type="text/javascript">
+    // 创建VM
+   Vue.filter('dataString',function (value) {
+       return moment(value).format('YYYY-MM-DD HH:mm:ss')
+   });
+    new Vue(
+        {
+            el: '#app', //指定元素
+            data :{      //model
+                date: new Date()
+            }
+        }
+    )
+</script>
+</html>

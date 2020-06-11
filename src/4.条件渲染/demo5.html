@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+MV
+<div id="app">
+    <!--条件渲染 v-show【display:none】 v-if的区别,v-show是固定的，v-if每次都需要创建一个对象-->
+    <p v-if="ok">成功了</p>
+    <p v-else>失败了</p>
+    <p v-show="ok">成功了</p>
+    <p v-show="!ok">失败了</p>
+    <button @click="ok=!ok">切换</button>
+</div>
+</body>
+<script type="text/javascript" src="../../js/vue.js"></script>
+<script type="text/javascript">
+    // 创建VM
+    var vm = new Vue(
+        {
+            el: '#app', //指定元素
+            data: {      //model
+                ok: true,
+            }
+        }
+    )
+</script>
+</html>

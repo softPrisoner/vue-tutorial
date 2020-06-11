@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="demo">
+    <button value="destroy" @click="myDestroy">destroy</button>
+    <p v-if="isShow">
+        众人独乐乐</p>
+
+</div>
+</body>
+<script type="text/javascript" src="../../js/vue.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#demo',
+        data: {
+            isShow: true
+        },
+        beforeMount() {
+            console.log("beforeMount()");
+        },
+        mounted() {
+            console.log("mounted()");
+            setInterval(function () {
+                    this.isShow = !this.isShow;
+                }
+                , 2000
+            )
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04_class与style的绑定</title>
+    <style>
+        .aClass {
+            color: red;
+        }
+
+        .bClass {
+            color: green;
+        }
+
+        .cClass {
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="demo">
+    <p class="cClass" :class="a">XXX是一个字符串</p>
+    <p :class="{aClass:isA,bClass:isB}">XXX是一个对象</p>
+    <p :class="['aClass','cClass']">XXX是一个数组</p>
+    <p :style="{color:activeColor,fontSize:fontSize+'px'}">XXX是style</p>
+    <button @click="update">更新</button>
+    <br/>
+    <input v-model="num"/>
+    <button v-model="stop" @click="add()">+</button>
+    <button v-model="start" @click="dec()">-</button>
+</div>
+<!--自定义组件-->
+<my-component :class="bazboo"></my-component>
+<p class="foo bar active">Hi</p>
+</body>
+<!--步骤1：首先引入vue.js-->
+<script type="text/javascript" src="../../js/vue.js"></script>
+
+<script type="text/javascript">
+    const vm=new Vue(
+        {
+            el: '#demo',
+            data: {
+                a: 'aClass',
+                isA: true,
+                isB: false,
+                num: 1,
+                activeColor: 'red',
+                fontSize: 35
+            },
+            methods: {
+                update() {
+                    this.num = this.num + 1;
+                    alert(this.num)
+
+                    if ((this.num % 2) == 0) {
+                        this.a = 'bClass'
+                        this.isA = false
+                        this.isB = true
+                    } else {
+                        this.a = 'aClass'
+                        this.isA = true
+                        this.isB = false
+                    }
+                },
+                add() {
+                    if (this.num < 5) {
+                        this.num++;
+                    } else {
+
+                    }
+                },
+                dec() {
+                    if (this.num > 0) {
+                        this.num--;
+                    }
+                }
+
+            }
+        }
+    )
+    vm.component('my-component', {
+        template: '<p class="foo bar">Hi</p>'
+    })
+</script>
+</html>

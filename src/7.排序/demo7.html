@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="searchName"/>
+    <ur>
+        <li v-for="(p,index) in filterPersons" :key="index">
+            {{index}}-->{{p.name}}-->{{p.age}}
+        </li>
+    </ur>
+    <button @click="orderType=1">年龄升序排序</button>
+    <button @click="orderType=-1">年龄降序排序</button>
+    <button @click="orderType=0">年龄原本排序</button>
+</div>
+</body>
+<script type="text/javascript" src="../../js/vue.js"></script>
+<script type="text/javascript">
+    // 创建VM
+    var vm = new Vue(
+        {
+            el: '#app', //指定元素
+            data: {      //model
+                searchName: ''
+                ,
+                orderType: 0,//0代表原本顺序 1升序 -1 降序
+                persons: [
+                    {name: '张三', age: 18},
+                    {name: '王五', age: 19},
+                    {name: '李四', age: 21}
+                ]
+            },
+            computed: {
+                filterPersons() {
+                    //取出相关数据
+                    const {searchName, persons, orderType} = this
+                    //最终过滤后的数组
+                    let fPersons;
+                    fPersons = persons.filter(p => p.name.indexOf(searchName) !== -1)
+                    //排序
+                    if (orderType !== 0) {
+                        fPersons.sort(function (p1,p2) { //负数p1在前 正数p2在前
+                            if (orderType === 1) {//升序
+                                return p1.age-p2.age;
+                            } else { //降序
+                                return p2.age-p1.age;
+                            }
+                        })
+                    }
+                    return fPersons;
+
+                }
+            },
+            methods: {
+                pAsc() {
+
+                },
+                pDesc() {
+
+                },
+                pOrign() {
+                }
+
+
+            }
+        }
+    )
+</script>
+</html>

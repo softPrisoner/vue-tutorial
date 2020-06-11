@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--对于计算复合属性的使用，需要使用computed-->
+    firstName:<input type="text" placeholder="firstName" v-model="firstName"/><br/>
+    LastName:<input type="text" placeholder="lastName" v-model="lastName"/><br/>
+    姓名1（单向）：<input type="text" placeholder="Full Name1" v-model="fullName1"/><br/>
+    姓名2（单向）：<input type="text" placeholder="Full Name2" v-model="fullName2"/><br/>
+    姓名3（双向）：<input type="text" placeholder="Full Name3" v-model="fullName3"/><br/>
+    //多次计算，有缓存保障
+    <p>{{firstName}}</p>
+    <p>{{firstName}}</p>
+    <p>{{firstName}}</p>
+    <p>{{firstName}}</p>
+</div>
+<script type="text/javascript" src="../../js/vue.js"></script>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: '#app',
+        //计算属性
+        data: {
+            firstName: 'firstName',
+            lastName: 'lastName'
+        },
+        // 什么时候执行：1、初始化、2、相关的属性发生变化
+        computed: {
+            //计算并返回当前属性的值
+            fullName1() {// 计算属性的方法
+                return this.firstName + ' ' + this.lastName;
+            },
+            fullName3: {
+                //1.你定义的 2、你没有调用 3、执行了
+                //回调函数，计算并返回当前属性的值
+                //当需要获取当前对象的属性值时，回调
+                get() {
+                    // alert("你调用get方法")
+                    return this.firstName + ' ' + this.lastName;
+                },
+                //当前属性发生改变时回调，更新相关的属性数据
+                set(value) {
+                    alert("你调用set方法")
+                    const names = value.split(' ');
+                    this.firstName = names[0];
+                    this.lastName = names[1];
+                }
+            }
+        },
+        watch: { //配置监视
+            firstName: function (value) { //回调函数
+                console.log('fullName1()');
+                console.log(this);
+                this.fullName1 = value + ' ' + this.lastName();
+            },
+            lastName: function (value) { //回调函数
+                console.log('fullName2()');
+                console.log(this);
+                this.fullName1 = value + ' ' + this.lastName();
+            }
+        }
+
+    });
+
+    //vm对象的watch监视表达式
+    vm.$watch('lastName', function (value) {
+        //更新fullName2
+        this.fullName2 = this.firstName + ' ' + value;
+    })
+</script>
+</body>
+</html>
